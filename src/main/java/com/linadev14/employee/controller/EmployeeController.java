@@ -15,6 +15,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    // localhost:8080/api/v1/employees
     @PostMapping("employees")
     public Employee createEmployee(@RequestBody Employee employee){
         return employeeService.createEmployee(employee);
