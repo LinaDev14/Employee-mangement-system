@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.beans.Beans;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +26,23 @@ public class EmployeeService implements EmployeeServiceInterface {
         employeeRepository.save(employeeEntity);
 
         return employee;
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        List<EmployeeEntity> employeeEntities
+                = employeeRepository.findAll();
+
+        return employeeEntities
+                .stream()
+                .map(emp -> new Employee(
+                        emp.getId(),
+                        emp.getFirstName(),
+                        emp.getLastName(),
+                        emp.getEmail(),
+                        emp.getNumberPhone(),
+                        emp.getCountry()
+                )).toList();
     }
 
 }

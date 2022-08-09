@@ -5,6 +5,8 @@ import com.linadev14.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/")
 // ruta de proyecto de react
@@ -18,5 +20,11 @@ public class EmployeeController {
     @PostMapping("employees")
     public Employee createEmployee(@RequestBody Employee employee){
         return employeeService.createEmployee(employee);
+    }
+
+    // localhost:8080/api/v1/listEmployees
+    @GetMapping("listEmployees")
+    public List<Employee> getAllEmployees(){
+        return employeeService.getAllEmployees();
     }
 }
