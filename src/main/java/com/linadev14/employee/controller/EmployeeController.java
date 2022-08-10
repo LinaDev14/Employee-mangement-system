@@ -3,9 +3,12 @@ package com.linadev14.employee.controller;
 import com.linadev14.employee.model.Employee;
 import com.linadev14.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/")
@@ -22,9 +25,22 @@ public class EmployeeController {
         return employeeService.createEmployee(employee);
     }
 
-    // localhost:8080/api/v1/listEmployees
-    @GetMapping("listEmployees")
+    // localhost:8080/api/v1/employees
+    @GetMapping("employees")
     public List<Employee> getAllEmployees(){
         return employeeService.getAllEmployees();
+    }
+
+    @DeleteMapping("employees/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id){
+        boolean deleted = false;
+
+        deleted = employeeService.deleteEmployee(id);
+
+        Map<String, Boolean> response = new HashMap<>();
+
+        response.put("deleted", deleted);
+
+        return ResponseEntity.ok(response);
     }
 }
